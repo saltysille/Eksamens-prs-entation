@@ -64,7 +64,7 @@ const title = myData.brand;
         {
           myData.images.map((image, index) => (
             <div id={`image-${index + 1}`} key={index} class="popup-trigger">
-              <img src={image} alt={myData.alttext} />
+             <img src={image} alt={myData.alttext} />
             </div>
           ))
         }
@@ -123,13 +123,7 @@ const title = myData.brand;
 
   </section>
 
-  <div id="popupMenu">
-    <ul>
-      <li><a href="/public/frontpage/pic3.webp">Item 1</a></li>
-      <li><a href="#">Item 2</a></li>
-      <li><a href="#">Item 3</a></li>
-    </ul>
-  </div>
+ 
 
 
 <Insta />
@@ -139,45 +133,9 @@ const title = myData.brand;
 
 
 <style>
-
-  /* TEST */
-  @media only screen and (max-width: 767px) {
-
-    .popup-trigger {
-    cursor: pointer;
-  }
-
-  #popupMenu {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
-
-  #popupMenu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  #popupMenu li {
-    padding: 10px;
-  }
-
-  #popupMenu a {
-    text-decoration: none;
-    color: #333;
-    display: block;
-  }
-
-  #popupMenu a:hover {
-    background-color: #f0f0f0;
-  }
-}
 /* FIRST */
   .image-container {
-    display: flex;
+   /*  display: flex; */
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -189,9 +147,9 @@ const title = myData.brand;
     height: auto;
   }
 
-  .image-container div:not(:first-child) {
+  /* .image-container div:not(:first-child) {
     display: none;
-  }
+  } */
 
 
 
@@ -403,36 +361,6 @@ const title = myData.brand;
   }
 </style>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const popupTriggers = document.querySelectorAll(".popup-trigger");
-    const popupMenu = document.getElementById("popupMenu");
-
-    const closeMenu = (event) => {
-      const target = event.target || event.srcElement;
-
-      if (![...popupTriggers].some(trigger => trigger.contains(target)) &&
-          target !== popupMenu &&
-          !popupMenu.contains(target)) {
-        popupMenu.style.display = "none";
-      }
-    };
-
-    popupTriggers.forEach(trigger => {
-      trigger.addEventListener("click", () => {
-        popupMenu.style.display = (popupMenu.style.display === "block") ? "none" : "block";
-      });
-    });
-
-    // Close the menu if the user clicks outside of it
-    window.addEventListener("click", closeMenu);
-
-    return () => {
-      // Clean up event listener on component unmount
-      window.removeEventListener("click", closeMenu);
-    };
-  });
-</script>
 
 
 
