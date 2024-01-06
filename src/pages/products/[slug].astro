@@ -40,8 +40,10 @@ const title = myData.brand;
 
 <Mainlayout title={title} metadesc={metadesc}>
   <section class="product-section">
+
     <a class="backbtn" href="/listeview/">
-      <svg
+      Tilbage
+     <!--  <svg
         width="40"
         height="32"
         viewBox="0 0 40 32"
@@ -51,14 +53,24 @@ const title = myData.brand;
         <path
           d="M4.93934 10.9393C4.35355 11.5251 4.35355 12.4749 4.93934 13.0607L14.4853 22.6066C15.0711 23.1924 16.0208 23.1924 16.6066 22.6066C17.1924 22.0208 17.1924 21.0711 16.6066 20.4853L8.12132 12L16.6066 3.51472C17.1924 2.92893 17.1924 1.97919 16.6066 1.3934C16.0208 0.807614 15.0711 0.807614 14.4853 1.3934L4.93934 10.9393ZM36 10.5L6 10.5L6 13.5L36 13.5L36 10.5Z"
           fill="#7A1C44"></path>
-      </svg>
+      </svg> -->
     </a>
 
+  
+
     <div class="container">
+
+      <!-- Search SVG -->
+ 
      
+      <div class="search-svg-container">
+        <img class="search-svg" src="/public/search.svg" alt="search button">
+        </div>
+      
      
       <div class="image-container">
        
+  
        
         <!-- billeder med alt-text -->
         {
@@ -66,6 +78,26 @@ const title = myData.brand;
             <div id={`image-${index + 1}`} key={index} class="popup-trigger">
              <img src={image} alt={myData.alttext} />
             </div>
+          ))
+        }
+      </div>
+
+      
+      <div class="image-container2">
+       
+       
+        <!-- billeder med alt-text -->
+        {
+          myData.images.map((image, index) => (
+            <div id={`image-${index + 1}`} key={index} class="popup-trigger">
+             <img src={image} alt={myData.alttext} />
+          
+            <div class="image-wrapper" style={{ backgroundImage: `url(${image})` }}>
+             <div class="arrow left"> </div>
+      <div class="arrow right"></div>
+    </div>
+    </div>
+           
           ))
         }
       </div>
@@ -133,13 +165,87 @@ const title = myData.brand;
 
 
 <style>
+
+
+
+/* ... (previous styles) */
+
+.search-svg-container {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+}
+
+.search-svg {
+  width: 24px; /* Adjust the width as needed */
+  height: 24px; /* Adjust the height as needed */
+  fill: var(--cta-text); /* Change the fill color as needed */
+}
+
+.search-svg:hover {
+  opacity: 0.7;
+}
+
+/* ... (remaining styles) */
+
+
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: var( --cta-text);
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.arrow:hover {
+  opacity: 0.7;
+}
+
+.left {
+  background-image:url(/public/arrowleft.svg);
+  background-repeat: no-repeat;
+  background-size: contain; 
+ /*  left: 25px;
+  top: 350px;
+  font-size: 2rem; */
+  left: 25px;
+  width: 5%;
+  height: 10%;
+  top: 380px;
+  opacity: 0.2; 
+}
+
+.right {
+  right: 25px;
+  top: 370px;
+  font-size: 2rem;
+  background-image:url(/public/arrowright.svg);
+  background-repeat: no-repeat;
+  background-size: contain; 
+  right: 25px;
+  width: 5%;
+  height: 10%;
+  top: 380px;
+  opacity: 0.2; 
+}
 /* FIRST */
-  .image-container {
+  
+.container{
+  position: relative;
+            width: 100%;
+            max-width: 1700px; /* Adjust the width as needed */
+            overflow: hidden;
+}
+.image-container {
    /*  display: flex; */
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    padding: 10px;
+   /*  padding: 10px; */
   }
 
   .image-container img {
@@ -147,24 +253,43 @@ const title = myData.brand;
     height: auto;
   }
 
-  /* .image-container div:not(:first-child) {
+.image-container div:not(:first-child):not(.search-svg-container) {
     display: none;
-  } */
+  } 
+
+  .image-container2{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* padding: 10px; */
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .image-container2 img {
+    width: 100%;
+    height: auto;
+  }
 
 
+
+  .image-container2 #image-1{
+    opacity: 0.5; /* Adjust the opacity value as needed (0 to 1) */
+}
 
   /* TEST SLUT */
 
 
   h1 {
-    font-family: var(--font-family-medium);
-    font-size: 30px;
+    font-family: var(--font-family-roman);
+    font-size: 25px;
     font-weight: 100;
   }
 
   h2 {
     font-family: var(--font-family-light);
-    font-size: 25px;
+    font-size: 20px;
     padding-bottom: 20px;
     font-weight: 100;
   }
@@ -193,8 +318,7 @@ const title = myData.brand;
   }
   button {
     font-size: 18px;
-    color: var(--cta-text);
-    background-color: transparent;
+    background-color: var(--cta-text);
     border: 2px solid var(--cta-text);
     padding: 10px 110px;
     cursor: pointer;
@@ -205,18 +329,10 @@ const title = myData.brand;
   }
 
   button p {
-    color: var(--cta-text);
+    color: var(--secondary-color);
   }
 
-  button:hover {
-    background-color: var(--cta-text);
-    color: white;
-    border: 2px solid transparent;
-  }
-
-  button:hover p {
-    color: white;
-  }
+  
 
   svg {
     display: block;
@@ -248,7 +364,7 @@ const title = myData.brand;
   img {
     width: 100%;
     height: auto;
-    padding-bottom: 20px;
+    
   }
   .vintage-text,
   .vintage-text p {
@@ -263,16 +379,68 @@ const title = myData.brand;
 
   .info,
   .model {
-    padding-top: 60px;
+    padding-bottom: 10px;
     line-height: 2rem;
     text-align: left;
-    padding: 45px;
+    margin: 34px 45px;
   }
   .text-container {
     text-align: center;
     margin-top: 10px;
   }
+
+  .backbtn {
+    text-decoration: underline;
+    color: var(--cta-text);
+    margin-left: -314px;
+  }
+
+  .backbtn:hover{
+    color: var(--primary-);
+  }
   @media only screen and (min-width: 768px) {
+
+    .backbtn {
+    margin-left: 0;
+  }
+
+    .arrow{
+      display: none;
+    }
+
+    button {
+    font-size: 18px;
+    background-color: transparent;
+    border: 2px solid var(--cta-text);
+    padding: 10px 110px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+  }
+
+  button p {
+    color: var(--cta-text);
+  }
+
+  button:hover {
+    background-color: var(--cta-text);
+    color: white;
+    border: 2px solid transparent;
+  }
+
+  button:hover p {
+    color: white;
+  }
+
+    .image-container div:not(:first-child) {
+    display: block;
+  } 
+
+    .image-container2{
+    display: none;
+  }
     .product-section {
       margin-top: 150px;
     }
@@ -300,6 +468,7 @@ const title = myData.brand;
       scrollbar-width: thin;
       width: 100%;
       flex: 1;
+    
     }
 
 
@@ -336,6 +505,7 @@ const title = myData.brand;
       line-height: 2rem;
       text-align: left;
       padding: 2px;
+      margin: 0;
     }
     p {
       font-size: 15px;

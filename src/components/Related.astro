@@ -17,7 +17,7 @@ const data = await fetch(
 <section class="image-grid">
   {
     data
-      .filter((item) => [15, 7, 13].includes(item.id))
+      .filter((item) => [5, 7, 13, 14].includes(item.id))
       .map((item) => (
         <div class="grid-item" key={item.slug}>
           <a href={`/products/${item.slug}`}>
@@ -44,7 +44,10 @@ const data = await fetch(
 
 <style>
   .image-grid {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px;
   }
   button {
     color: #7a1c44;
@@ -53,6 +56,50 @@ const data = await fetch(
     padding: 2px 50px;
     cursor: pointer;
     margin-top: 10px;
+    margin-bottom: 30px;
+    background-color: #7a1c44;
+    border: 1px solid #7a1c44;
+  }
+
+  button p {
+    font-family: var(--font-family-roman);
+    color: var(--secondary-color);
+  }
+
+  button:hover {
+    background-color: #7a1c44;
+    color: white;
+  }
+
+  button:hover p {
+    color: white;
+  }
+
+  .grid-item {
+    text-align: center;
+  }
+  .image {
+    width: 100%;
+    height: auto;
+    
+  }
+  h4 {
+    font-family: var(--font-family-medium);
+    font-size: 0.8rem;
+  }
+  .tekst {
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+
+    button {
+    color: #7a1c44;
+    font-size: 16px;
+    border: none;
+    padding: 2px 50px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 0;
     background-color: transparent;
     border: 1px solid #7a1c44;
   }
@@ -70,22 +117,6 @@ const data = await fetch(
   button:hover p {
     color: white;
   }
-
-  .grid-item {
-    text-align: center;
-  }
-  .image {
-    width: 100%;
-    height: 80%;
-    scale: 90%;
-  }
-  h4 {
-    font-family: var(--font-family-medium);
-  }
-  .tekst {
-    text-align: center;
-  }
-  @media (min-width: 768px) {
     .image-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
