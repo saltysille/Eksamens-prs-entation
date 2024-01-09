@@ -3,7 +3,13 @@ import Mainlayout from "../../layouts/Mainlayout.astro";
 import Insta from "../../components/Insta.astro";
 import Related from "../../components/Related.astro";
 
+
+/* STEP 1 - hente / fetche data fra Superbase  */
+
 // funktion til at generere statiske stier og props baseret på API
+// await bruges til at vente på, at fetch-operationen fuldføres, før programmet fortsætter.
+// API nøgle gir adgang til data 
+
 export async function getStaticPaths() {
   // laver en statisk side / path
   const data = await fetch(
@@ -18,28 +24,35 @@ export async function getStaticPaths() {
   ).then((response) => response.json());
 
   console.log("Data from API:", data);
-
   // for at se data fra API - er i terminalen
 
+/* STEP 2 */
+
+ // return laver statisk underside ud fra den database - eks. acne sko, som man har klikket på listeview. Slug hedder det også i Superbase
+  // props = myData er det samme som product
   return data.map((product) => {
     return {
       params: { slug: String(product.slug) },
-      // return laver statisk underside ud fra den database - eks. acne sko, som man har klikket på listeview. Slug hedder det også i Superbase
       props: { myData: product },
-      // props = myData er det samme som product
     };
   });
 }
 
+/* Metadata til SEO */
+
+// Her oprettes en variabel kaldet metadesc, som indeholder en beskrivelse (meta description) 
+
 const { myData } = Astro.props;
-// Metadata til SEO
 const metadesc =
   "Eksklusivt vintagefund! Bæredygtigt secondhand tøj til salg. Unikke sæsonvarer – Køb nu!";
 const title = myData.brand;
 ---
 
+
 <Mainlayout title={title} metadesc={metadesc}>
   <section class="product-section">
+
+<!-- VIL GIVE MENING AT LAVE EN KOMPONENT HER  -->
 
     <a class="backbtn" href="/listeview/">
       Tilbage
@@ -55,7 +68,6 @@ const title = myData.brand;
           fill="#7A1C44"></path>
       </svg> -->
     </a>
-
   
 
     <div class="container">
@@ -86,12 +98,17 @@ const title = myData.brand;
       <div class="image-container2">
        
        
-        <!-- billeder med alt-text -->
+  <!-- BILLEDER MED ALT-TEKST -->
+   <!-- <div id={image-${index + 1}} key={index} >. 
+        1. Dette opretter et div-element for hvert billede. 
+        2. id bliver sat til en unik værdi baseret på billedets position/ index i listen. 
+        3. key er nødvendig for at hjælpe med at identificere hver unikke div under renderingen
+    -->
+ 
         {
           myData.images.map((image, index) => (
-            <div id={`image-${index + 1}`} key={index} class="popup-trigger">
-             <img src={image} alt={myData.alttext} />
-          
+            <div id={`image-${index + 1}`} key={index}>
+             <img src={image} alt={myData.alttext} />       
             <div class="image-wrapper" style={{ backgroundImage: `url(${image})` }}>
              <div class="arrow left"> </div>
       <div class="arrow right"></div>
@@ -106,10 +123,20 @@ const title = myData.brand;
         <h1>{myData.brand_front}</h1>
         <h2>{myData.price}</h2>
         <div class="btn-container">
-          <!-- 
-            Tjek om produktet er udsolgt (soldout_1 === 'soldout').
-            Hvis ikke udsolgt, vis knappen.
-          -->
+  
+  <!-- UDSOLGT ELLER EJ
+    1. myData.soldout_1 :  Koden tjekker, om myData.soldout_1 eksisterer (myData.soldout_1 &&). 
+    Hvis det gør, vises en <h4> (underskrift) med klassen "soldout".
+
+    2. soldout med lille 
+    myData.soldout_1.toLowerCase() === "soldout", vises teksten "Sold Out", ellers vises indholdet af myData.soldout_1 
+    Der står både lille og småt soldout Soldout
+
+    3. myData.price = tjekker, om myData.price eksisterer og ikke er markeret som "soldout".
+    Hvis dette er tilfældet, vises en knap (<button>) med klassen "btn" og teksten "SHOP" indeni.
+
+      DVS: hvis kun knap , hvis produktet er markeret som soldout i databasen
+  -->
           {
             myData.soldout_1 && (
               <h4 class="soldout">
@@ -121,7 +148,6 @@ const title = myData.brand;
           }
 
           {
-              // Vis kun knappen, hvis produktet ikke er udsolgt
             myData.price && myData.price.toLowerCase() !== "soldout" && (
               <button className="btn" type="button" name="btn">
                 <p>SHOP</p>
@@ -165,10 +191,6 @@ const title = myData.brand;
 
 
 <style>
-
-
-
-/* ... (previous styles) */
 
 .search-svg-container {
   position: absolute;
