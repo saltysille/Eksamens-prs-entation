@@ -3,16 +3,23 @@ const {data}=Astro.props;
 ---
 
 <article class={`grid-item ${data.subsub_category}`} data-category={data.subsub_category}>
-
-  <!-- Vælger  kategorierne -->
+<!-- Vælger  kategorierne -->
+<!-- <article class={grid-item ${data.subsub_category}} data-category={data.subsub_category}>: 
+  Dette opretter en artikel-tag (<article>) med klassen "grid-item" og yderligere klasser baseret på værdien af data.subsub_category. 
+  Det tilføjer også en data-attribut (data-category) med værdien af data.subsub_category. 
+  Dette kan bruges   yderligere funktionalitet baseret på underkategorien af produktet. -->
   
 
      <!-- Billede fra databasen + alttext -->
+     <!-- Enkelte billeder - data.alttekst erstattes, hvis billedet ikke kan vises -->
   <a href={`/products/${data.slug}`}>
       <img class="image" src={data.image} alt={data.alttext}>
     </a>
+<!-- <a href={/products/${data.slug}}>: 
+  Dette opretter en anker-tag (<a>) med en URL baseret på produktets slug. -->
+      <!-- Billede fra databasen + alttext -->
+     <!-- Enkelte billeder - data.alttekst erstattes, hvis billedet ikke kan vises -->
 
-<!-- Enkelte billeder - data.alttekst erstattes, hvis billedet ikke kan vises -->
 
     <div class="item-info">
       <a href={`/products/${data.slug}`}>
@@ -21,16 +28,28 @@ const {data}=Astro.props;
       </a>
       <!-- price = pris på produkt -->
       <h4 class="h4">{data.price} </h4>
+
+      <!-- UDSOLGT eller ej 
+       1. myData.soldout_1 :  Koden tjekker, om myData.soldout_1 eksisterer (myData.soldout_1 &&). 
+    Hvis det gør, vises en <h4> (underskrift) med klassen "soldout".
+
+    2. soldout med lille 
+    myData.soldout_1.toLowerCase() === "soldout", vises teksten "Sold Out", ellers vises indholdet af myData.soldout_1 
+    Der står både lille og småt soldout Soldout
+
+    3. myData.price = tjekker, om myData.price eksisterer og ikke er markeret som "soldout".
+    Hvis dette er tilfældet, vises en knap (<button>) med klassen "btn" og teksten "SHOP" indeni.
+
+      DVS: hvis kun knap , hvis produktet er markeret som soldout i databasen
+      -->
+      
       {data.soldout_1 && (
         <h4 class="soldout">
           {data.soldout_1.toLowerCase() === "soldout" ? "Sold Out" : data.soldout_1}
         </h4>
       )}
-      <!-- && hvis ikke soldout i databasen, så skal du ikke vise soldout, men vise prisen - dvs. -->
-
-      <!-- // Viser "SHOP" hvis prisen ikke er markeret som "soldout" i databasen. -->
+      
       {data.price && data.price.toLowerCase() !== "soldout" && (
-          // knap der linker til det gældende produkt. Brugt !== og && , hvis det er true, så er det udsolgt og hvis det er false så er den ikke udsolgt
         <button type="button" name="btn">
           <a class="knap" href={`/products/${data.slug}`}>
             <p>SHOP</p>
@@ -39,6 +58,7 @@ const {data}=Astro.props;
       )}
     </div>
   </article>
+
 
   <style>
       /* knap */
