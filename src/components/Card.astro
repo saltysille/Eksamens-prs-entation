@@ -2,23 +2,28 @@
 const {data}=Astro.props; 
 ---
 
-<article class={`grid-item ${data.subsub_category}`} data-category={data.subsub_category}>
-<!-- Vælger  kategorierne -->
-<!-- <article class={grid-item ${data.subsub_category}} data-category={data.subsub_category}>: 
-  Dette opretter en artikel-tag (<article>) med klassen "grid-item" og yderligere klasser baseret på værdien af data.subsub_category. 
-  Det tilføjer også en data-attribut (data-category) med værdien af data.subsub_category. 
-  Dette kan bruges   yderligere funktionalitet baseret på underkategorien af produktet. -->
-  
 
-     <!-- Billede fra databasen + alttext -->
+<!-- 1. Vælger  kategorierne -->
+
+<article class={`grid-item ${data.subsub_category}`} data-category={data.subsub_category}>
+
+  <!-- 2. <article class={grid-item ${data.subsub_category}} data-category={data.subsub_category}>: 
+  - Oprettes et grid, som skal du henter dataen ud fra id’erne og sorterer efter kategorierne
+  - Nu vil vi gerne tildele en klasse, så vi kan bruge dataen fra subsub.category - og det gør vi ved at definere:
+  - (data-category={data.subsub_category}>
+  - Vi kan nu i listeview hente data fra subsub-category i databasen specifikt.
+  - Vi vil gerne hente alle kategorierne i subsub_category (der har vi kodet: top, bottom, accessories). 
+  - 
+   -->
+  
+<!-- 3. Billede fra databasen + alttext -->
      <!-- Enkelte billeder - data.alttekst erstattes, hvis billedet ikke kan vises -->
   <a href={`/products/${data.slug}`}>
       <img class="image" src={data.image} alt={data.alttext}>
     </a>
 <!-- <a href={/products/${data.slug}}>: 
   Dette opretter en anker-tag (<a>) med en URL baseret på produktets slug. -->
-      <!-- Billede fra databasen + alttext -->
-     <!-- Enkelte billeder - data.alttekst erstattes, hvis billedet ikke kan vises -->
+     
 
 
     <div class="item-info">
@@ -40,7 +45,6 @@ const {data}=Astro.props;
     3. myData.price = tjekker, om myData.price eksisterer og ikke er markeret som "soldout".
     Hvis dette er tilfældet, vises en knap (<button>) med klassen "btn" og teksten "SHOP" indeni.
 
-      DVS: hvis kun knap , hvis produktet er markeret som soldout i databasen
       -->
       
       {data.soldout_1 && (
@@ -141,6 +145,10 @@ const {data}=Astro.props;
        /* produktinformation i desktop */
         .item-info {
           margin-top: 20px;
+        }
+
+        .h3 {
+          font-size: 0.8rem;
         }
     
       }

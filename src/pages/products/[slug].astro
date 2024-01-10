@@ -28,8 +28,10 @@ export async function getStaticPaths() {
 
 /* STEP 2 */
 
- // return laver statisk underside ud fra den database - eks. acne sko, som man har klikket på listeview. Slug hedder det også i Superbase
+ // return laver statisk underside ud fra den database - eks. acne sko, som man har klikket på listeview. 
+ // slug hedder det også i Superbase
   // props = myData er det samme som product
+
   return data.map((product) => {
     return {
       params: { slug: String(product.slug) },
@@ -100,8 +102,9 @@ const title = myData.brand;
        
   <!-- BILLEDER MED ALT-TEKST -->
    <!-- <div id={image-${index + 1}} key={index} >. 
-        1. Dette opretter et div-element for hvert billede. 
-        2. id bliver sat til en unik værdi baseret på billedets position/ index i listen. 
+        1.  Dette opretter et div-element for hvert billede - gøres med index+1 
+        2. mapper (image,index), da ligger i arrays med URL'er i Superbase og der 
+         skal hentes hver enkelt billeder, som ligger i det her array. 
         3. key er nødvendig for at hjælpe med at identificere hver unikke div under renderingen
     -->
  
@@ -114,6 +117,7 @@ const title = myData.brand;
       <div class="arrow right"></div>
     </div>
     </div>
+
            
           ))
         }
@@ -135,7 +139,6 @@ const title = myData.brand;
     3. myData.price = tjekker, om myData.price eksisterer og ikke er markeret som "soldout".
     Hvis dette er tilfældet, vises en knap (<button>) med klassen "btn" og teksten "SHOP" indeni.
 
-      DVS: hvis kun knap , hvis produktet er markeret som soldout i databasen
   -->
           {
             myData.soldout_1 && (
