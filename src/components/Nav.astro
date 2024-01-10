@@ -240,6 +240,8 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    // Dette sætter en event listener, der lytter efter, at DOM'en 
+    //er blevet fuldt indlæst, og når det sker, udføres den tilknyttede funktion.
     const burgerContainer = document.querySelector(".burger-container");
     const navList = document.querySelector(".nav-list");
     const burgerIcon = document.querySelector(".burger-icon");
@@ -252,6 +254,9 @@
         ? "block"
         : "none";
     }
+    // CSS styles: 
+    // block = åben navbar med kryds 
+    // none = lukket navbar = brugermenu
 
     crossIcon.style.display = "none";
 
@@ -259,4 +264,6 @@
       burgerContainer.addEventListener("click", toggleMenu);
     }
   });
+
+  // Hvis du klikker på burger-menuen / "none",  åbner navbar og kryds skal komme til syne
 </script>

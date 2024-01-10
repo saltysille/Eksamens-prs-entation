@@ -18,9 +18,28 @@ const data = await fetch(
   {
     data
       .filter((item) => [5, 7, 13, 14].includes(item.id))
-      .map((item) => (
+      //1. data.filter((item) => [5, 7, 13, 14].includes(item.id)): 
+        //Dette filtrerer datasættet ved kun at inkludere elementer, 
+        //hvis id-attributten matcher en af de specificerede værdier (5, 7, 13 eller 14).
+
+      //2. <a href={/products/${item.slug}}>: 
+        //Dette opretter en anker-tag (<a>) med en URL baseret på elementets slug = det der står url'en.
+
+      // 3. <img class="image" src={item.image} alt={item.alttext} />: Dette opretter et billede 
+        //(<img>) med klassen "image", hvor kilden (src) og alternativ tekst (alt) er hentet fra elementet i datasættet.
+
+      // 5. <div class="item-info"> ... </div>: 
+        //Dette opretter en container med klassen "item-info" og indeholder yderligere information om elementet.
+
+      //6. <button className="btn" type="button" name="btn" key={item.slug}> ... </button>: 
+        //Dette opretter en knap (<button>) med klassen "btn" og et unikt nøgleværdi baseret på elementets slug.
+
+      // 7. <button className="btn" type="button" name="btn" key={item.slug}> ... </button>: 
+        //Dette opretter en knap (<button>) med klassen "btn" og et unikt nøgleværdi baseret på elementets slug.
+          
+          .map((item) => (
         <div class="grid-item" key={item.slug}>
-          <a href={`/products/${item.slug}`}>
+          <a href={`/products/${item.slug}`}> 
             <img class="image" src={item.image} alt={item.alttext} />
           </a>
           <div class="item-info">
@@ -38,9 +57,6 @@ const data = await fetch(
       ))
   }
 </section>
-
-<!-- Key = id (15, 7 , 13) 
-/products/${item.slud} linker til det rigtige produkt i slug kategorien i superbase-->
 
 <style>
   .image-grid {
